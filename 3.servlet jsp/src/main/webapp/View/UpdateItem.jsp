@@ -1,0 +1,170 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="model.Item" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Update Item</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:linear-gradient(135deg,#141E30,#243B55);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:40px;
+}
+
+.container{
+    width:450px;
+    background:#ffffff;
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+    animation:fadeIn .5s ease;
+}
+
+h2{
+    text-align:center;
+    color:#243B55;
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:30px;
+    letter-spacing:1px;
+}
+
+label{
+    display:block;
+    margin-top:18px;
+    margin-bottom:8px;
+    color:#243B55;
+    font-size:15px;
+    font-weight:600;
+}
+
+input{
+    width:100%;
+    padding:13px 15px;
+    font-size:15px;
+    border:2px solid #dbe4ec;
+    border-radius:12px;
+    outline:none;
+    background:#fafafa;
+    transition:all .3s ease;
+}
+
+input:focus{
+    border-color:#00B4D8;
+    background:#fff;
+    box-shadow:0 0 12px rgba(0,180,216,.3);
+}
+
+.buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:15px;
+}
+
+.btn{
+    text-decoration:none;
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all .3s ease;
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.btn:hover{
+    transform:translateY(-3px);
+}
+
+.btn:active{
+    transform:scale(.96);
+}
+
+.add-btn{
+    background:linear-gradient(135deg,#06D6A0,#1B9AAA);
+    color:#fff;
+    box-shadow:0 8px 18px rgba(6,214,160,.25);
+}
+
+.add-btn:hover{
+    box-shadow:0 12px 25px rgba(6,214,160,.45);
+}
+
+.cancel-btn{
+    background:linear-gradient(135deg,#EF476F,#D90429);
+    color:#fff;
+    box-shadow:0 8px 18px rgba(217,4,41,.25);
+}
+
+.cancel-btn:hover{
+    box-shadow:0 12px 25px rgba(217,4,41,.45);
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+</style>
+
+</head>
+<body>
+
+<%
+
+Item item = (Item)request.getAttribute("SelectedItem");
+
+%>
+
+
+<div class="container">
+
+    <h2>Update Item</h2>
+
+    <form action="/ItemsProject/ItemController" method="post">
+
+        <input type="hidden" name="action" value="updateItem">
+        <input type="hidden" name="id" value="<%= item.getId() %>">
+
+        <label>Name</label>
+        <input type="text" name="name" required value="<%= item.getName() %>">
+
+        <label>Price</label>
+        <input type="number" name="price" required  value="<%= item.getPrice() %>">
+
+        <label>Total Number</label>
+        <input type="number" name="totalNumber" required value="<%= item.getTotalNumber() %>">
+
+        <div class="buttons">
+            <button type="submit" class="btn add-btn">Update Item</button>
+            <a href="/ItemsProject/ItemController" class="btn cancel-btn">Back</a>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+</html>

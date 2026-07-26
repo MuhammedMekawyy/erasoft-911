@@ -1,0 +1,215 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="model.Account" %>
+
+<%
+    Account account = (Account) session.getAttribute("account");
+
+    if (account == null) {
+        response.sendRedirect(request.getContextPath() + "/View/Signup.html");
+        return;
+    }
+%>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transfer Money</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins","Segoe UI",sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
+    overflow:hidden;
+}
+
+body::before,
+body::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    z-index:-1;
+}
+
+body::before{
+    width:300px;
+    height:300px;
+    background:#38bdf8;
+    top:-80px;
+    left:-80px;
+}
+
+body::after{
+    width:350px;
+    height:350px;
+    background:#7c3aed;
+    bottom:-120px;
+    right:-120px;
+}
+
+.container{
+    width:450px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:25px;
+    padding:40px;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.container h1{
+    color:white;
+    text-align:center;
+    margin-bottom:10px;
+    font-size:34px;
+}
+
+.subtitle{
+    color:#dbeafe;
+    text-align:center;
+    margin-bottom:30px;
+    font-size:15px;
+}
+
+.welcome{
+    color:white;
+    text-align:center;
+    margin-bottom:22px;
+    font-size:15px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    color:white;
+    margin-bottom:8px;
+    font-weight:500;
+}
+
+.input-group input{
+    width:100%;
+    padding:14px 16px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.9);
+    font-size:15px;
+    transition:.3s;
+}
+
+.input-group input:focus{
+    box-shadow:0 0 0 3px rgba(59,130,246,.4);
+}
+
+.transfer-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:600;
+    color:white;
+    background:linear-gradient(135deg,#3b82f6,#2563eb);
+    transition:.3s;
+    margin-top:10px;
+}
+
+.transfer-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(37,99,235,.4);
+}
+
+.back{
+    margin-top:25px;
+    text-align:center;
+}
+
+.back a{
+    display:inline-block;
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+    padding:10px 22px;
+    border-radius:12px;
+    background:rgba(255,255,255,.15);
+    transition:.3s;
+}
+
+.back a:hover{
+    background:rgba(255,255,255,.25);
+    transform:translateY(-2px);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔄 Transfer Money</h1>
+
+    <p class="subtitle">
+        Send money securely to another account.
+    </p>
+
+    <div class="welcome">
+        Logged in as: <strong><%= account.getUsername() %></strong>
+    </div>
+
+    <form action="/EwalletSystem/WalletController" method="post">
+
+        <input type="hidden" name="action" value="transfer">
+
+        <div class="input-group">
+            <label>Receiver Username</label>
+            <input
+                type="text"
+                name="receiverUsername"
+                placeholder="Enter receiver username"
+                required>
+        </div>
+
+        <div class="input-group">
+            <label>Amount</label>
+            <input
+                type="number"
+                name="amount"
+                placeholder="Enter amount"
+                min="100"
+                step="100"
+                required>
+        </div>
+
+        <button type="submit" class="transfer-btn">
+            Transfer
+        </button>
+
+    </form>
+
+    <div class="back">
+        <a href="mainProfile.jsp">← Back to Profile</a>
+    </div>
+
+</div>
+
+</body>
+</html>
