@@ -1,7 +1,11 @@
-package serviceImpl;
+package Task1.service.serviceImpl;
 
-import service.UserService;
+import org.springframework.stereotype.Component;
 
+import Task1.service.UserService;
+
+
+@Component("myManger")
 public class MangerService implements UserService {
 
 	@Override

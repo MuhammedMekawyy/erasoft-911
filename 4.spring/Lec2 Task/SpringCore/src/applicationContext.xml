@@ -7,11 +7,22 @@
     http://www.springframework.org/schema/context
     http://www.springframework.org/schema/context/spring-context.xsd">
     
-   <context:component-scan base-package="com.spring.core"></context:component-scan> 
-   
-<bean id="personService" class="serviceImpl.PersonService"></bean>
+     <context:component-scan base-package="Task1"></context:component-scan> 
+     
+     <bean id="personService" class="Task1.service.serviceImpl.PersonService"></bean>
+     <bean id="personService2" class="Task2.Service.serviceImpl.PersonService"></bean> 
+     <bean id="personService3" 
+      class="Task3.service.serviceImpl.PersonService"
+      scope="prototype"
+      init-method="init"
+      destroy-method="destroy">
+</bean>
 
-<bean id="mangerService" class="serviceImpl.MangerService"></bean>
+<bean id="accountService" class="Task2.Service.serviceImpl.AccountServiceImpl">
+    <property name="personService" ref="personService2"/>
+</bean>
+
+   
 
 </beans>
 

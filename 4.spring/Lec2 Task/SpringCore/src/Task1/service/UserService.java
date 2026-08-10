@@ -1,4 +1,4 @@
-package service;
+package Task1.service;
 
 public interface UserService { 
 	
